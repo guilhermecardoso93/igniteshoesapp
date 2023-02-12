@@ -7,31 +7,13 @@ import {
   Pressable,
 } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import { OSNotification } from "react-native-onesignal";
 
 type Props = {
-  data: OSNotification;
+  title: string;
   onClose: () => void;
 };
 
-type AddtionalDataProps = {
-  route?: "details";
-  product_id?: string;
-};
-
-export function Notification({ data, onClose }: Props) {
-  const { navigate } = useNavigation();
-
-  function handleOnPress() {
-    const { route, product_id } = data.additionalData as AddtionalDataProps;
-
-    if (route === "details" && product_id ) {
-      navigate("details", { productId: product_id });
-      onClose();
-    }
-  }
-
+export function Notification({ title, onClose }: Props) {
   return (
     <Pressable
       w="full"
@@ -40,7 +22,6 @@ export function Notification({ data, onClose }: Props) {
       bgColor="gray.200"
       position="absolute"
       top={0}
-      onPress={handleOnPress}
     >
       <HStack justifyContent="space-between" alignItems="center">
         <Icon
@@ -52,7 +33,7 @@ export function Notification({ data, onClose }: Props) {
         />
 
         <Text fontSize="md" color="black" flex={1}>
-          {data.title}
+          {title}
         </Text>
 
         <IconButton

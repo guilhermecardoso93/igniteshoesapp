@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import OneSignal, { OSNotification } from "react-native-onesignal";
+import { useEffect } from "react";
+import OneSignal, { NotificationReceivedEvent } from "react-native-onesignal";
 import { StatusBar } from "react-native";
 import { NativeBaseProvider } from "native-base";
 import {
@@ -15,6 +15,8 @@ import { Loading } from "./src/components/Loading";
 
 import { CartContextProvider } from "./src/contexts/CartContext";
 import { tagUserInfoCreate } from "./src/notifications/notificationsTags";
+import { Notification } from "./src/components/Notification";
+
 
 OneSignal.setAppId("718c8601-83c7-4e6b-8cf9-be0e0dcdf51c");
 
@@ -26,20 +28,11 @@ export default function App() {
   tagUserInfoCreate();
 
   useEffect(() => {
-    const unsubscribe = OneSignal.setNotificationOpenedHandler((response) => {
-      const { actionId } = response.action as any;
+    const unsubscribe = OneSignal.setNotificationWillShowInForegroundHandler(
+      (notificationReceivedEvent: NotificationReceivedEvent) => console.log(notificationReceivedEvent)
+    );
 
-      switch (actionId) {
-        case "1":
-          return console.log("Ver pedido");
-        case "2":
-          return console.log("Ver todas");
-        default:
-          return console.log("Não clicou em nada");
-      }
-    });
-
-    return () => unsubscribe;
+    return () => unsubscribe
   }, []);
 
   return (
@@ -52,6 +45,7 @@ export default function App() {
       <CartContextProvider>
         {fontsLoaded ? <Routes /> : <Loading />}
       </CartContextProvider>
+      <Notification title="Mensagem de Notificação" onClose={() => {}} />
     </NativeBaseProvider>
   );
 }

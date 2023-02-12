@@ -8,28 +8,18 @@ import {
 } from "native-base";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { OSNotification } from "react-native-onesignal";
 
 type Props = {
-  data: OSNotification;
+  title: string;
   onClose: () => void;
 };
 
-type AddtionalDataProps = {
-  route?: "details";
-  product_id?: string;
-};
-
-export function Notification({ data, onClose }: Props) {
+export function Notification({ title, onClose }: Props) {
   const { navigate } = useNavigation();
 
   function handleOnPress() {
-    const { route, product_id } = data.additionalData as AddtionalDataProps;
-
-    if (route === "details" && product_id ) {
-      navigate("details", { productId: product_id });
-      onClose();
-    }
+    navigate("details", { productId: "7" });
+    onClose()
   }
 
   return (
@@ -52,7 +42,7 @@ export function Notification({ data, onClose }: Props) {
         />
 
         <Text fontSize="md" color="black" flex={1}>
-          {data.title}
+          {title}
         </Text>
 
         <IconButton

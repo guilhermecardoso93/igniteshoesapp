@@ -33,7 +33,7 @@ export function Routes() {
       <AppRoutes />
       {notification?.title && (
         <Notification
-          data={notification}
+          title={notification.title}
           onClose={() => setNotification(undefined)}
         />
       )}

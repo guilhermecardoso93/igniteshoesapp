@@ -15,21 +15,12 @@ type Props = {
   onClose: () => void;
 };
 
-type AddtionalDataProps = {
-  route?: "details";
-  product_id?: string;
-};
-
 export function Notification({ data, onClose }: Props) {
   const { navigate } = useNavigation();
 
   function handleOnPress() {
-    const { route, product_id } = data.additionalData as AddtionalDataProps;
-
-    if (route === "details" && product_id ) {
-      navigate("details", { productId: product_id });
-      onClose();
-    }
+    navigate("details", { productId: "7" });
+    onClose()
   }
 
   return (
