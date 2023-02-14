@@ -37,7 +37,6 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     try {
       const response = await storageProductRemove(productId);
       setCart(response);
-      tagCardUpdate(response.length.toString())
     } catch (error) {
       throw error;
     }

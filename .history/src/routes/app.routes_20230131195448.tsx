@@ -6,12 +6,10 @@ import { useTheme } from 'native-base';
 import { Cart } from '../screens/Cart';
 import { Home } from '../screens/Home';
 import { Details } from '../screens/Details';
-import { useCart } from '../hooks/useCart';
 
 const { Navigator, Screen } = createBottomTabNavigator();
 
 export function AppRoutes() {
-  const { cart } = useCart()
   const { colors, sizes } = useTheme();
 
   return (
@@ -39,7 +37,6 @@ export function AppRoutes() {
         component={Cart}
         options={{
           tabBarIcon: ({ color }) => <Feather name="shopping-bag" color={color} size={sizes[6]} />,
-          tabBarBadge: cart.length > 0 ? cart.length : undefined,
         }}
       />
 
